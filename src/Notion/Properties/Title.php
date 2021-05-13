@@ -4,5 +4,4 @@ use Notion\PropertyBase;
 
 class Title extends PropertyBase
 {
-
 }

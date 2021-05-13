@@ -4,5 +4,4 @@ use Notion\PropertyBase;
 
 class Formula extends PropertyBase
 {
-
 }
