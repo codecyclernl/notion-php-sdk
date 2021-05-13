@@ -4,5 +4,4 @@ use Codecycler\Notion\PropertyBase;
 
 class Number extends PropertyBase
 {
-
 }

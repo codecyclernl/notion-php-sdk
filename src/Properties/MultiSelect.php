@@ -4,5 +4,4 @@ use Codecycler\Notion\PropertyBase;
 
 class MultiSelect extends PropertyBase
 {
-
 }

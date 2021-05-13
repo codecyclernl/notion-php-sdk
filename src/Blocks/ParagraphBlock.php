@@ -1,7 +1,7 @@
 <?php namespace Codecycler\Notion\Blocks;
 
-use Codecycler\Notion\RichText;
 use Codecycler\Notion\BlockBase;
+use Codecycler\Notion\RichText;
 
 class ParagraphBlock extends BlockBase
 {
