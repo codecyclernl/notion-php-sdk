@@ -1,6 +1,7 @@
 {
     "name": "codecycler/notion",
     "description": "Notion PHP SDK",
+    "type": "library",
     "keywords": [
         "Codecycler",
         "Notion"
@@ -15,7 +16,8 @@
         }
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "guzzlehttp/guzzle": "^7.0.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",
@@ -25,12 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Codecycler\\Notion\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Codecycler\\Notion\\Tests\\": "tests"
+            "Notion": "src/"
         }
     },
     "scripts": {
