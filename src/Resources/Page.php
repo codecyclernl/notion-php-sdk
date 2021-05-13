@@ -54,13 +54,22 @@ class Page extends Resource
             'parent' => [
                 $parentType . '_id' => $parentId,
             ],
-            'properties' => [
-
-            ],
+            'properties' => $this->generateProperties($properties),
         ];
 
         if ($children) {
-            $data['childrend'] = $children;
+            $data['children'] = $children;
         }
+
+        $options = [
+            'body' => json_stringify($data),
+        ];
+
+        return $this->callApi(null, 'post', $options);
+    }
+
+    public function generateProperties($properties)
+    {
+        return [];
     }
 }
