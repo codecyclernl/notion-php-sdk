@@ -2,10 +2,10 @@
 
 namespace Codecycler\Notion;
 
-use Exception;
-use GuzzleHttp\Client as ApiClient;
 use Codecycler\Notion\Http\Response;
 use Codecycler\Notion\Resources\Page;
+use Exception;
+use GuzzleHttp\Client as ApiClient;
 
 class Client
 {
@@ -32,10 +32,10 @@ class Client
             'base_uri' => $this->url,
             'http_errors' => false,
             'headers' => [
-                'Authorization'     => 'Bearer ' . $this->getApiToken(),
-                'Accept'            => 'application/json',
-                'Content-Type'      => 'application/json',
-                'Notion-Version'    => $this->version,
+                'Authorization' => 'Bearer ' . $this->getApiToken(),
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Notion-Version' => $this->version,
             ],
         ]);
 
