@@ -4,5 +4,4 @@ use Notion\PropertyBase;
 
 class CreatedTime extends PropertyBase
 {
-
 }

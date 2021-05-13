@@ -7,7 +7,8 @@ class Notion
 {
     protected $client;
 
-    public function __construct($token) {
+    public function __construct($token)
+    {
         $this->client = new Client($token);
     }
 

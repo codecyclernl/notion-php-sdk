@@ -12,7 +12,8 @@ class Client
 
     private $apiToken = null;
 
-    public function __construct(string $token = null) {
+    public function __construct(string $token = null)
+    {
         if ($token) {
             $this->setApiToken($token);
         }
