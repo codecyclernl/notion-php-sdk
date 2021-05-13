@@ -22,7 +22,7 @@ class Page extends Resource
             $base = "{$base}/{$this->getId()}";
         }
 
-        if (!$path) {
+        if (! $path) {
             return $base;
         }
 

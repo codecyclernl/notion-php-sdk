@@ -28,7 +28,7 @@ class Block extends Resource
 
     public $has_children;
 
-    static $typeOptions = [
+    public static $typeOptions = [
         'paragraph',
         'heading_1',
         'heading_2',

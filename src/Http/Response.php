@@ -1,7 +1,7 @@
 <?php namespace Codecycler\Notion\Http;
 
-use stdClass;
 use Psr\Http\Message\ResponseInterface;
+use stdClass;
 
 class Response
 {
@@ -54,8 +54,8 @@ class Response
     public function toArray(): array
     {
         return [
-            'json'      => $this->getJson(),
-            'response'  => $this->getResponse(),
+            'json' => $this->getJson(),
+            'response' => $this->getResponse(),
         ];
     }
 }
