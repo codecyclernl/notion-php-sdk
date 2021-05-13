@@ -17,8 +17,8 @@ class Notion
         return $this->client;
     }
 
-    public function database(): Database
+    public function database($id = null): Database
     {
-        return new Database($this);
+        return new Database($this, $id);
     }
 }

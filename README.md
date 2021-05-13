@@ -18,7 +18,37 @@ composer require codecycler/notion
 
 ## Usage
 
-Coming soon...
+Getting all databases attached  to your integration.
+```php
+use Notion\Notion;
+
+$databaseOptions = new Notion($token)
+    ->database()
+    ->ids();
+```
+
+Querying a database by id
+```php
+use Notion\Notion;
+
+$databaseOptions = new Notion($token)
+    ->database($databaseId)
+    ->query()
+    ->get();
+```
+
+Query database by property (WIP)
+```php
+$response = $client->database('e3161af3-ff12-43c5-9f42-02eea4ab4cbf')
+  ->query()
+  ->where('Show on website', 'checkbox', 'equals', true)
+  ->get()
+  ->toArray();
+
+foreach ($response['json']->results as $page) {
+  ray($page->properties->Name->title[0]->plain_text);
+}
+```
 
 ## Changelog
 

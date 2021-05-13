@@ -10,7 +10,7 @@ class Client
 
     private $version = '2021-05-13';
 
-    private $apiToken = null;
+    private $apiToken;
 
     public function __construct(string $token = null)
     {

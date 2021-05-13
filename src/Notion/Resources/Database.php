@@ -4,9 +4,19 @@ class Database extends Resource
 {
     protected $endpoint = 'databases';
 
-    public function getIds()
+    protected $idType = 'database_id';
+
+    public function query()
     {
-        $response = $this->all()->getJson()->results;
+        $this->method = 'post';
+        $this->endpoint = 'databases/' . $this->id . '/query';
+
+        return $this;
+    }
+
+    public function ids()
+    {
+        $response = $this->get()->getJson()->results;
 
         $ids = [];
 
