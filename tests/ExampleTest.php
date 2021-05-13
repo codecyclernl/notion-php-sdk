@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Codecycler\Notion\Tests;
 
 use PHPUnit\Framework\TestCase;
 

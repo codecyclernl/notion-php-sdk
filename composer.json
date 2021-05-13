@@ -1,21 +1,21 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "codecycler/notion",
+    "description": "Notion PHP SDK",
     "keywords": [
-        ":vendor_name",
-        "package_slug"
+        "Codecycler",
+        "Notion"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/codecycler/notion",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Sebastiaan Kloos",
+            "email": "sebastiaan@codecycler.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^7.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Codecycler\\Notion\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Codecycler\\Notion\\Tests\\": "tests"
         }
     },
     "scripts": {
