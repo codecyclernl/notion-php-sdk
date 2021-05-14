@@ -50,6 +50,14 @@ foreach ($response['json']->results as $page) {
 }
 ```
 
+Getting a page by id
+```php
+$page = $client->page('9b0ff081-1af8-4751-92d6-9e07fbd5c20d')->get();
+
+$name           = $page->name;          // Property: 'Name'
+$showOnWebsite  = $page->showOnWebsite; // Property: 'Show on website'
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

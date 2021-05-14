@@ -97,7 +97,9 @@ class Resource
         $this->archived         = $data->archived;
 
         foreach ($data->properties as $label => $property) {
-            $this->properties[$label] = $this->createNewProperty($label, $property);
+            $key = str_replace(' ', '', lcfirst(ucwords($label, ' ')));
+
+            $this->properties[$key] = $this->createNewProperty($label, $property);
         }
     }
 
