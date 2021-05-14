@@ -8,11 +8,20 @@ class Collection extends ObjectBase
 
     public $pages = [];
 
+    public $databases = [];
+
     public function handleResponse($data)
     {
-        foreach ($data->results as $page) {
-            $page = new Page($page);
-            $this->pages[] = $page;
+        foreach ($data->results as $item) {
+            if ($item->object === 'page') {
+                $page = new Page($item);
+                $this->pages[] = $page;
+            }
+
+            if ($item->object === 'database') {
+                $database = new Database($item);
+                $this->databases[] = $database;
+            }
         }
     }
 }

@@ -16,12 +16,12 @@ class Database extends Resource
 
     public function ids()
     {
-        $response = $this->get()->getJson()->results;
-
         $ids = [];
 
-        foreach ($response as $database) {
-            $ids[$database->id] = $database->title[0]->plain_text;
+        $databases = $this->get()->databases;
+
+        foreach ($databases as $database) {
+            $ids[$database->id] = $database->name;
         }
 
         return $ids;
