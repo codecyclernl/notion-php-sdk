@@ -146,4 +146,19 @@ class Resource
                 return new PropertyBase($label, $property);
         }
     }
+
+    public function __get($property)
+    {
+        return $this->properties[$property]
+            ->value();
+    }
+
+    public function __set($property, $value)
+    {
+    }
+
+    public function __isset($property)
+    {
+        return isset($this->properties[$property]);
+    }
 }
