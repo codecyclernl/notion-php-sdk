@@ -39,14 +39,14 @@ $databaseOptions = new Notion($token)
 
 ### Query database by property (WIP)
 ```php
-$response = $client->database('e3161af3-ff12-43c5-9f42-02eea4ab4cbf')
+$database = $client->database('e3161af3-ff12-43c5-9f42-02eea4ab4cbf')
   ->query()
   ->where('Show on website', 'checkbox', 'equals', true)
-  ->get()
-  ->toArray();
+  ->get();
 
-foreach ($response['json']->results as $page) {
-  ray($page->properties->Name->title[0]->plain_text);
+foreach ($database->pages as $page) {
+  $name = $page->name;
+  $status = $page->status;
 }
 ```
 
