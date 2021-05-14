@@ -6,7 +6,7 @@ class PropertyBase
 
     protected $filterType = 'text';
 
-    public function __construct($name)
+    public function __construct($name, $config)
     {
         $this->name = $name;
     }
