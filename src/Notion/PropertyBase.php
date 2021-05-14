@@ -12,8 +12,6 @@ class PropertyBase
     {
         $this->name = $name;
         $this->config = $config;
-
-        ray($config);
     }
 
     public function value()
