@@ -18,7 +18,7 @@ composer require codecycler/notion
 
 ## Usage
 
-Getting all databases attached  to your integration.
+### Getting all databases attached  to your integration.
 ```php
 use Notion\Notion;
 
@@ -27,7 +27,7 @@ $databaseOptions = new Notion($token)
     ->ids();
 ```
 
-Querying a database by id
+### Querying a database by id
 ```php
 use Notion\Notion;
 
@@ -37,7 +37,7 @@ $databaseOptions = new Notion($token)
     ->get();
 ```
 
-Query database by property (WIP)
+### Query database by property (WIP)
 ```php
 $response = $client->database('e3161af3-ff12-43c5-9f42-02eea4ab4cbf')
   ->query()
@@ -50,7 +50,7 @@ foreach ($response['json']->results as $page) {
 }
 ```
 
-Getting a page by id
+### Getting a page by id
 ```php
 $page = $client->page('9b0ff081-1af8-4751-92d6-9e07fbd5c20d')->get();
 
