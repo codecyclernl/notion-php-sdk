@@ -71,15 +71,12 @@ class Page extends ObjectBase
 
     public function save()
     {
-        ray($this->prepareForRequest());
-
         $options = [
             'body' => json_encode($this->prepareForRequest()),
         ];
 
         if ($this->context === 'create') {
             $response = $this->notion->getClient()->post('pages', $options);
-            ray($response);
         }
     }
 
