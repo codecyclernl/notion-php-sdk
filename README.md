@@ -1,5 +1,7 @@
 # Notion PHP SDK
 
+<img src="https://github.com/codecyclernl/notion-php-sdk/raw/main/banner.png" />
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/codecycler/notion.svg?style=flat-square)](https://packagist.org/packages/codecycler/notion)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/codecycler/notion/run-tests?label=tests)](https://github.com/codecycler/notion/actions?query=workflow%3ATests+branch%3Amaster)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/codecycler/notion/Check%20&%20fix%20styling?label=code%20style)](https://github.com/codecycler/notion/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
