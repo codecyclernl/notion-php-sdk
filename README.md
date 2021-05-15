@@ -60,6 +60,18 @@ $name           = $page->name;          // Property: 'Name'
 $showOnWebsite  = $page->showOnWebsite; // Property: 'Show on website'
 ```
 
+### Creating a new page in a database
+```php
+$database = $client->database('e3161af3-ff12-43c5-9f42-02eea4ab4cbf')->get();
+
+$page = $database->newPage();
+
+$page->name = 'New page created with the Notion API';
+$page->showOnWebsite = true;
+
+$page->save();
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
