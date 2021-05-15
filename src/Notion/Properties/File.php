@@ -4,8 +4,4 @@ use Notion\PropertyBase;
 
 class File extends PropertyBase
 {
-    public function value()
-    {
-        return null;
-    }
 }

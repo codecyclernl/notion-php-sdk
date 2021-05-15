@@ -2,6 +2,7 @@
 
 use Notion\Notion;
 use Notion\Objects\Page;
+use Notion\Objects\Database;
 use Notion\Traits\Filterable;
 use Notion\Objects\Collection;
 
@@ -44,6 +45,8 @@ class Resource
         //
         $body = [];
 
+        $result = null;
+
         $options = [];
 
         if (count($this->filter['or']) > 0) {
@@ -68,9 +71,15 @@ class Resource
         $data = $response->getJson();
 
         if ($data->object === 'list') {
-            $result = new Collection($data);
+            $result = new Collection($data, $this->notion);
         } else {
-            $result = new Page($data);
+            if ($data->object === 'page') {
+                $result = new Page($data, $this->notion);
+            }
+
+            if ($data->object === 'database') {
+                $result = new Database($data, $this->notion);
+            }
         }
 
         return $result;

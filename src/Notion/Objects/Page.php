@@ -1,107 +1,92 @@
 <?php namespace Notion\Objects;
 
-use Notion\RichText;
 use Notion\ObjectBase;
-use Notion\PropertyBase;
-use Notion\Properties\URL;
-use Notion\Properties\Date;
-use Notion\Properties\File;
-use Notion\Properties\Email;
-use Notion\Properties\Title;
-use Notion\Properties\Number;
-use Notion\Properties\People;
-use Notion\Properties\Rollup;
-use Notion\Properties\Select;
-use Notion\Properties\Formula;
-use Notion\Properties\Relation;
-use Notion\Properties\Checkbox;
-use Notion\Properties\CreatedBy;
-use Notion\Properties\CreatedTime;
-use Notion\Properties\MultiSelect;
-use Notion\Properties\PhoneNumber;
-use Notion\Properties\LastEditedBy;
-use Notion\Properties\LastEditedTime;
 
 class Page extends ObjectBase
 {
+    protected $context = 'update';
+
     protected $properties = [];
 
-    protected function handleResponse($data)
+    protected $parent;
+
+    public function setParent($type, $id): self
     {
-        $this->setProperties($data);
+        $this->parent[$type . '_id'] = $id;
+
+        return $this;
     }
 
-    protected function setProperties($data): void
+    public function prepareForRequest()
     {
-        $this->created_time     = $data->created_time;
-        $this->last_edited_time = $data->last_edited_time;
-        $this->archived         = $data->archived;
+        $data = [
+            'parent' => $this->parent,
+            'properties' => [],
+        ];
 
-        foreach ($data->properties as $label => $property) {
-            $key = str_replace(' ', '', lcfirst(ucwords($label, ' ')));
+        foreach ($this->properties as $property) {
+            $value = $property->get();
 
-            $this->properties[$key] = $this->createNewProperty($label, $property);
+            if (!$value) {
+                continue;
+            }
+
+            $data['properties'][$property->name] = $value;
         }
+
+        return $data;
     }
 
-    protected function createNewProperty($label, $property)
+    public function initProperties($data): self
     {
-        switch ($property->type) {
-            case "relation":
-                return new Relation($label, $property);
-            case "checkbox":
-                return new Checkbox($label, $property);
-            case "created_by":
-                return new CreatedBy($label, $property);
-            case "created_time":
-                return new CreatedTime($label, $property);
-            case "date":
-                return new Date($label, $property);
-            case "email":
-                return new Email($label, $property);
-            case "file":
-                return new File($label, $property);
-            case "formula":
-                return new Formula($label, $property);
-            case "last_edited_by":
-                return new LastEditedBy($label, $property);
-            case "last_edited_time":
-                return new LastEditedTime($label, $property);
-            case "multi_select":
-                return new MultiSelect($label, $property);
-            case "number":
-                return new Number($label, $property);
-            case "people":
-                return new People($label, $property);
-            case "phone_number":
-                return new PhoneNumber($label, $property);
-            case "rich_text":
-                return new RichText($label, $property);
-            case "rollup":
-                return new Rollup($label, $property);
-            case "select":
-                return new Select($label, $property);
-            case "title":
-                return new Title($label, $property);
-            case "url":
-                return new URL($label, $property);
-            default:
-                return new PropertyBase($label, $property);
-        }
+        $this->properties = $data;
+
+        return $this;
     }
 
     public function __get($property)
     {
+        if (!isset($this->properties[$property])) {
+            return $this->$property;
+        }
+
         return $this->properties[$property]
             ->value();
     }
 
     public function __set($property, $value)
     {
+        if (!isset($this->properties[$property])) {
+            $this->$property = $value;
+            return;
+        }
+
+        $this->properties[$property]->set($value);
     }
 
     public function __isset($property)
     {
         return isset($this->properties[$property]);
+    }
+
+    public function save()
+    {
+        ray($this->prepareForRequest());
+
+        $options = [
+            'body' => json_encode($this->prepareForRequest()),
+        ];
+
+        if ($this->context === 'create') {
+            $response = $this->notion->getClient()->post('pages', $options);
+            ray($response);
+        }
+    }
+
+    public function setContext($context): self
+    {
+        $this->context = $context;
+
+        return $this;
     }
 }

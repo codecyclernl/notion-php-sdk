@@ -2,7 +2,7 @@
 
 class PropertyBase
 {
-    protected $name;
+    public $name;
 
     protected $filterType = 'text';
 
@@ -16,5 +16,29 @@ class PropertyBase
 
     public function value()
     {
+        return $this->config->{$this->config->type};
+    }
+
+    public function set($value): void
+    {
+        $this->config->{$this->config->type} = $value;
+    }
+
+    public function get()
+    {
+        $value = json_decode(json_encode($this->getValue()), true);
+
+        if (!$value) {
+            return null;
+        }
+
+        return [
+            $this->config->type => $value,
+        ];
+    }
+
+    public function getValue()
+    {
+        return null;
     }
 }

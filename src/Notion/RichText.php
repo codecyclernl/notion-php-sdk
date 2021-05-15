@@ -1,5 +1,5 @@
 <?php namespace Notion;
 
-class RichText
+class RichText extends PropertyBase
 {
 }

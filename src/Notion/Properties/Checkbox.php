@@ -4,8 +4,12 @@ use Notion\PropertyBase;
 
 class Checkbox extends PropertyBase
 {
-    public function value()
+    public function getValue()
     {
-        return $this->config->checkbox;
+        if (!is_bool($this->config->checkbox)) {
+            return false;
+        }
+
+        return (boolean) $this->config->checkbox;
     }
 }

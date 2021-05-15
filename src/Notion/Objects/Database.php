@@ -8,14 +8,13 @@ class Database extends ObjectBase
 
     public $name;
 
-    protected function handleResponse($data)
-    {
-        $this->setProperties($data);
-    }
+    protected $properties = [];
 
-    protected function setProperties($data)
+    public function newPage()
     {
-        $this->id = $data->id;
-        $this->name = $data->title[0]->plain_text;
+        return (new Page(null, $this->notion))
+            ->setParent('database', $this->id)
+            ->initProperties($this->properties)
+            ->setContext('create');
     }
 }

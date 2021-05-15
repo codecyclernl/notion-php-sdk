@@ -14,12 +14,12 @@ class Collection extends ObjectBase
     {
         foreach ($data->results as $item) {
             if ($item->object === 'page') {
-                $page = new Page($item);
+                $page = new Page($item, $this->notion);
                 $this->pages[] = $page;
             }
 
             if ($item->object === 'database') {
-                $database = new Database($item);
+                $database = new Database($item, $this->notion);
                 $this->databases[] = $database;
             }
         }
