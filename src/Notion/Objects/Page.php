@@ -10,9 +10,32 @@ class Page extends ObjectBase
 
     protected $parent;
 
+    protected $children = [];
+
     public function setParent($type, $id): self
     {
         $this->parent[$type . '_id'] = $id;
+
+        return $this;
+    }
+
+    // TODO: Implement rich text logic
+    public function addChild($type, $text, $extra = null): self
+    {
+        $this->children[] = [
+            'object' => 'block',
+            'type' => $type,
+            $type => [
+                'text' => [
+                    [
+                        'text' => [
+                            'type' => 'text',
+                            'content' => $text,
+                        ],
+                    ]
+                ],
+            ],
+        ];
 
         return $this;
     }
@@ -32,6 +55,10 @@ class Page extends ObjectBase
             }
 
             $data['properties'][$property->name] = $value;
+        }
+
+        if (count($this->children) > 0) {
+            $data['children'] = $this->children;
         }
 
         return $data;
@@ -76,7 +103,7 @@ class Page extends ObjectBase
         ];
 
         if ($this->context === 'create') {
-            $response = $this->notion->getClient()->post('pages', $options);
+            return $this->notion->getClient()->post('pages', $options);
         }
     }
 
