@@ -12,6 +12,7 @@ class Select extends PropertyBase
     public function set($value): void
     {
         $this->config->select->name = $value;
+        unset($this->config->select->id, $this->config->select->color);
     }
 
     public function getValue()

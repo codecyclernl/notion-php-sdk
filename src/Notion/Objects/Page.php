@@ -93,9 +93,11 @@ class Page extends ObjectBase
             'body' => json_encode($this->prepareForRequest()),
         ];
 
-        if ($this->context === 'create') {
+        if (!$this->id) {
             return $this->notion->getClient()->post('pages', $options);
         }
+
+        return $this->notion->getClient()->patch('pages/' . $this->id, $options);
     }
 
     public function setContext($context): self

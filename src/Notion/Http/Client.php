@@ -51,6 +51,11 @@ class Client
         return $this->makeCall($url, 'post', $options);
     }
 
+    public function patch(string $url, array $options = []): Response
+    {
+        return $this->makeCall($url, 'patch', $options);
+    }
+
     public function get(string $url, array $options = []): Response
     {
         return $this->makeCall($url, 'get', $options);
