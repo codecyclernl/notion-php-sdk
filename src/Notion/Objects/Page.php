@@ -1,17 +1,29 @@
 <?php namespace Notion\Objects;
 
-use Notion\RichText;
 use Notion\ObjectBase;
 
 class Page extends ObjectBase
 {
-    protected $context = 'update';
+    protected $endpoint = 'pages';
 
     protected $properties = [];
 
     protected $parent;
 
     protected $children = [];
+
+    public function get(): self
+    {
+        $client = $this->notion->getClient();
+
+        $response = $client->get('pages/' . $this->id);
+
+        $data = $response->getJson();
+
+        $this->handleResponse($data);
+
+        return $this;
+    }
 
     public function setParent($type, $id): self
     {

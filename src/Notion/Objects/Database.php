@@ -14,7 +14,6 @@ class Database extends ObjectBase
     {
         return (new Page(null, $this->notion))
             ->setParent('database', $this->id)
-            ->initProperties($this->properties)
-            ->setContext('create');
+            ->initProperties($this->properties);
     }
 }
