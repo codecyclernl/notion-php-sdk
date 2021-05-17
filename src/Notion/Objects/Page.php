@@ -1,5 +1,6 @@
 <?php namespace Notion\Objects;
 
+use Notion\RichText;
 use Notion\ObjectBase;
 
 class Page extends ObjectBase
@@ -20,23 +21,9 @@ class Page extends ObjectBase
     }
 
     // TODO: Implement rich text logic
-    public function addChild($type, $text, $extra = null): self
+    public function addBlock($block): self
     {
-        $this->children[] = [
-            'object' => 'block',
-            'type' => $type,
-            $type => [
-                'text' => [
-                    [
-                        'text' => [
-                            'type' => 'text',
-                            'content' => $text,
-                        ],
-                    ]
-                ],
-            ],
-        ];
-
+        $this->children[] = $block;
         return $this;
     }
 
@@ -58,7 +45,11 @@ class Page extends ObjectBase
         }
 
         if (count($this->children) > 0) {
-            $data['children'] = $this->children;
+            $data['children'] = [];
+
+            foreach ($this->children as $child) {
+                $data['children'][] = $child->get();
+            }
         }
 
         return $data;

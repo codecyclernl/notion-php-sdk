@@ -96,7 +96,7 @@ class ObjectBase
             case "phone_number":
                 return new PhoneNumber($label, $property);
             case "rich_text":
-                return new RichText($label, $property);
+                //return new RichText($label, $property);
             case "rollup":
                 return new Rollup($label, $property);
             case "select":
