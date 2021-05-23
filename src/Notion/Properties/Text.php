@@ -2,6 +2,6 @@
 
 use Notion\PropertyBase;
 
-class RichText extends PropertyBase
+class Text extends PropertyBase
 {
 }
