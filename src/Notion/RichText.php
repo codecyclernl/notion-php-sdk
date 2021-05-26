@@ -36,13 +36,9 @@ class RichText
         'red_background',
     ];
 
-    public function __construct($config = null)
+    public function __construct($config)
     {
-        $this->init($config);
-    }
-
-    public function init($config)
-    {
+        $this->parse($config);
     }
 
     public function get()
@@ -140,6 +136,27 @@ class RichText
     public function color($setting = 'default'): self
     {
         $this->annotations['color'] = $setting;
+        return $this;
+    }
+
+    public function parse($config): self
+    {
+        if (is_array($config) && count($config) === 1) {
+            $config = $config[0];
+        }
+
+        //
+        $this->plain_text = $config->plain_text;
+
+        //
+        $this->type = $config->type;
+
+        //
+        $this->annotations = (array) $config->annotations;
+
+        //
+        $this->href = $config->href;
+
         return $this;
     }
 }
