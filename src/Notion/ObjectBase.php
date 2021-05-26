@@ -1,6 +1,5 @@
 <?php namespace Notion;
 
-use Notion\RichText;
 use Illuminate\Support\Str;
 use Notion\Properties\URL;
 use Notion\Properties\Date;
@@ -12,6 +11,7 @@ use Notion\Properties\People;
 use Notion\Properties\Rollup;
 use Notion\Properties\Select;
 use Notion\Properties\Formula;
+use Notion\Properties\RichText;
 use Notion\Properties\Relation;
 use Notion\Properties\Checkbox;
 use Notion\Properties\CreatedBy;
@@ -32,6 +32,8 @@ class ObjectBase
     protected $object;
 
     protected $notion;
+
+    protected $title;
 
     public function __construct($data, $notion)
     {
@@ -96,7 +98,7 @@ class ObjectBase
             case "phone_number":
                 return new PhoneNumber($label, $property);
             case "rich_text":
-                //return new RichText($label, $property);
+                return new RichText($label, $property);
             case "rollup":
                 return new Rollup($label, $property);
             case "select":
