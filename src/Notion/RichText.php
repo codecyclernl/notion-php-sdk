@@ -36,9 +36,11 @@ class RichText
         'red_background',
     ];
 
-    public function __construct($config)
+    public function __construct($config = null)
     {
-        $this->parse($config);
+        if ($config) {
+            $this->parse($config);
+        }
     }
 
     public function get()
