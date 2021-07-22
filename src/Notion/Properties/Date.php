@@ -17,6 +17,6 @@ class Date extends PropertyBase
 
     public function getValue()
     {
-        return $this->config->date->start;
+        return $this->config->date;
     }
 }
