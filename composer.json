@@ -16,7 +16,11 @@
         }
     ],
     "require": {
+<<<<<<< HEAD
         "php": "^7.4|8.*",
+=======
+        "php": "^7.4|^8.0",
+>>>>>>> feba48ece4933a3f30a0dada1abc3810b1274820
         "guzzlehttp/guzzle": "^7.0.1",
         "illuminate/support": "^6.0|^7.0|^8.0"
     },
