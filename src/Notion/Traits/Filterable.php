@@ -2,18 +2,21 @@
 
 trait Filterable
 {
-    public $filter = [
-        'or' => [],
-    ];
+    protected $filter = [];
 
-    public function where($property, $propertyFilterType, $conditionType, $value)
+    public function filter($filters, $type = 'or')
     {
-        $this->filter['or'][] = [
-            'property' => $property,
-            $propertyFilterType => [
-                $conditionType => $value,
-            ],
-        ];
+        if (!isset($this->filter[$type])) {
+            $this->filter[$type] = [];
+        }
+
+        if (!is_array($filters)) {
+            $filters = [$filters];
+        }
+
+        foreach ($filters as $filter) {
+            $this->filter[$type][] = $filter->prepareForRequest();
+        }
 
         return $this;
     }

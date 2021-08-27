@@ -37,11 +37,14 @@ $databaseOptions = new Notion($token)
     ->get();
 ```
 
-### Query database by property (WIP)
+### Query database by property
 ```php
+$nameFilter = (new Notion\Filters\TextFilter())
+    ->equals('Name', 'Notion is awesome!');
+
 $database = $client->database('e3161af3-ff12-43c5-9f42-02eea4ab4cbf')
   ->query()
-  ->where('Show on website', 'checkbox', 'equals', true)
+  ->filter($nameFilter)
   ->get();
 
 foreach ($database->pages as $page) {

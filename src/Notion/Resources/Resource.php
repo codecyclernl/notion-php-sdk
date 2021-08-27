@@ -2,6 +2,7 @@
 
 use Notion\Notion;
 use Notion\Objects\Page;
+use Notion\Http\Request;
 use Notion\Objects\Database;
 use Notion\Traits\Filterable;
 use Notion\Objects\Collection;
@@ -39,46 +40,29 @@ class Resource
 
     public function get()
     {
+        //
+        $result = null;
+
+        //
         $client = $this->notion
             ->getClient();
 
         //
-        $body = [];
+        $response = (new Request($client))
+            ->filter($this->filter)
+            ->endpoint($this->endpoint)
+            ->method($this->method)
+            ->get($this->id);
 
-        $result = null;
-
-        $options = [];
-
-        if (count($this->filter['or']) > 0) {
-            $body = [
-                'filter' => $this->filter,
-            ];
-        }
-
-        if ($body) {
-            $options = [
-                'body' => json_encode($body),
-            ];
-        }
-
-        if ($this->id && !str_contains($this->endpoint, $this->id)) {
-            $response = $client->{$this->method}($this->endpoint . '/' . $this->id, $options);
+        if ($response->object === 'list') {
+            $result = new Collection($response, $this->notion);
         } else {
-            $response = $client->{$this->method}($this->endpoint, $options);
-        }
-
-        // Prepare object
-        $data = $response->getJson();
-
-        if ($data->object === 'list') {
-            $result = new Collection($data, $this->notion);
-        } else {
-            if ($data->object === 'page') {
-                $result = new Page($data, $this->notion);
+            if ($response->object === 'page') {
+                $result = new Page($response, $this->notion);
             }
 
-            if ($data->object === 'database') {
-                $result = new Database($data, $this->notion);
+            if ($response->object === 'database') {
+                $result = new Database($response, $this->notion);
             }
         }
 
