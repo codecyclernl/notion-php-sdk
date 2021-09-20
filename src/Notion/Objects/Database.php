@@ -13,7 +13,7 @@ class Database extends ObjectBase
 
     protected function handleResponse($data): void
     {
-        $this->setProperties($data);
+        $this->properties = $this->setProperties($data);
 
         $title = new RichText($data->title);
 
