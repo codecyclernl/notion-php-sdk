@@ -8,7 +8,7 @@ class Client
 
     private $url = 'https://api.notion.com/v1/';
 
-    private $version = '2021-05-13';
+    private $version = '2021-08-16';
 
     private $apiToken;
 
