@@ -25,6 +25,8 @@ class ObjectBase
 {
     public $id;
 
+    public $icon;
+
     protected $nextCursor;
 
     protected $hasMore;
@@ -63,6 +65,10 @@ class ObjectBase
 
         foreach ($data->properties as $label => $property) {
             $this->properties[Str::camel($label)] = $this->createNewProperty($label, $property);
+        }
+
+        if ($data->icon && $data->icon->type === 'emoji') {
+            $this->icon = $data->icon->emoji;
         }
     }
 
