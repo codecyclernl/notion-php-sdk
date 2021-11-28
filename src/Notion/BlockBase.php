@@ -16,13 +16,25 @@ class BlockBase
 
     public $typeConfiguration = [];
 
+    public $plain_text = '';
+
+    public function __construct($richText)
+    {
+        $this->plain_text = $richText->plain_text;
+    }
+
     public function get(): array
     {
-        return [
+        $data = [
             'object' => $this->object,
-            'id' => $this->id,
             'type' => $this->type,
             $this->type => $this->typeConfiguration,
         ];
+
+        if ($this->id) {
+            $data['id'] = $this->id;
+        }
+
+        return $data;
     }
 }

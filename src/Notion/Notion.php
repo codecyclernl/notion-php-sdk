@@ -2,6 +2,7 @@
 
 use Notion\Http\Client;
 use Notion\Resources\Page;
+use Notion\Resources\Block;
 use Notion\Resources\Database;
 
 class Notion

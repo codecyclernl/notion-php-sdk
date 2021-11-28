@@ -7,11 +7,15 @@ class ParagraphBlock extends BlockBase
 {
     public $type = 'paragraph';
 
-    public function __construct(RichText $richText)
+    public function __construct(RichText $richText, $checked = false)
     {
         $this->typeConfiguration = [
             'text' => [$richText->get()],
-            //'children' => [], // Todo: Children for paragraph block
         ];
+    }
+
+    public function toHtml()
+    {
+        return "<p>{$this->plain_text}</p>";
     }
 }

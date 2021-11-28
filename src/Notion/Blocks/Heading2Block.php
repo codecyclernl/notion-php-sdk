@@ -7,10 +7,8 @@ class Heading2Block extends BlockBase
 {
     public $type = 'heading_2';
 
-    public function __construct(RichText $richText)
+    public function toHtml()
     {
-        $this->typeConfiguration = [
-            'text' => [$richText->get()],
-        ];
+        return "<h2>{$this->plain_text}</h2>";
     }
 }

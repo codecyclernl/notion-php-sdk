@@ -48,14 +48,15 @@ class RichText
         return [
             'annotations' => $this->annotations,
             $this->type => $this->typeConfiguration,
+            'plain_text' => $this->plain_text,
         ];
     }
 
     public function text($content, $link = null): self
     {
         $this->type = 'text';
+        $this->plain_text = $content;
         $this->typeConfiguration['content'] = $content;
-        $this->typeConfiguration['type'] = 'text';
 
         if ($link) {
             $this->typeConfiguration['link'] = [
@@ -144,7 +145,9 @@ class RichText
     public function parse($config): self
     {
         if (is_array($config) && count($config) === 1) {
-            $config = $config[0];
+            $config = (object)$config[0];
+        } else {
+            return $this;
         }
 
         //

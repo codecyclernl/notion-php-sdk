@@ -15,6 +15,15 @@ class Select extends PropertyBase
         unset($this->config->select->id, $this->config->select->color);
     }
 
+    public function get()
+    {
+        return [
+            'select' => [
+                'name' => $this->config->select->name,
+            ],
+        ];
+    }
+
     public function getValue()
     {
         return $this->config->select;

@@ -63,11 +63,13 @@ class ObjectBase
             $this->archived = $data->archived;
         }
 
-        foreach ($data->properties as $label => $property) {
-            $this->properties[Str::camel($label)] = $this->createNewProperty($label, $property);
+        if (property_exists($data, 'properties')) {
+            foreach ($data->properties as $label => $property) {
+                $this->properties[Str::camel($label)] = $this->createNewProperty($label, $property);
+            }
         }
 
-        if ($data->icon && $data->icon->type === 'emoji') {
+        if (property_exists($data, 'icon') && $data->icon && $data->icon->type === 'emoji') {
             $this->icon = $data->icon->emoji;
         }
     }

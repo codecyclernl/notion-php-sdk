@@ -1,6 +1,7 @@
 <?php namespace Notion\Objects;
 
 use Notion\ObjectBase;
+use Notion\Http\Response;
 
 class Page extends ObjectBase
 {
@@ -64,6 +65,8 @@ class Page extends ObjectBase
             }
         }
 
+        ray($data);
+
         return $data;
     }
 
@@ -117,5 +120,12 @@ class Page extends ObjectBase
         $this->context = $context;
 
         return $this;
+    }
+
+    public function children()
+    {
+        $response = $this->notion->getClient()->get('blocks/' . $this->id . '/children');
+        $result = new Collection($response->getJson(), $this->notion);
+        return $result;
     }
 }
