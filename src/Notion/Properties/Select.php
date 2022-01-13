@@ -6,7 +6,7 @@ class Select extends PropertyBase
 {
     public function value()
     {
-        return $this->config->select->name;
+        return $this->config->select->name ?? null;
     }
 
     public function set($value): void
@@ -19,7 +19,7 @@ class Select extends PropertyBase
     {
         return [
             'select' => [
-                'name' => $this->config->select->name,
+                'name' => $this->config->select->name ?? null,
             ],
         ];
     }
