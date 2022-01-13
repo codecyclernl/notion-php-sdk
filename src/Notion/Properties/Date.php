@@ -6,7 +6,7 @@ class Date extends PropertyBase
 {
     public function value()
     {
-        return $this->config->date->start;
+        return $this->config->date->start ?? null;
     }
 
     public function set($value): void
