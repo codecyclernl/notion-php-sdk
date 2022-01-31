@@ -11,6 +11,10 @@ class Select extends PropertyBase
 
     public function set($value): void
     {
+        if (!isset($this->config->select)) {
+            $this->config->select = (object) [];
+        }
+
         $this->config->select->name = $value;
         unset($this->config->select->id, $this->config->select->color);
     }
