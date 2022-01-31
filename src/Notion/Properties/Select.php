@@ -12,7 +12,7 @@ class Select extends PropertyBase
     public function set($value): void
     {
         if (!isset($this->config->select)) {
-            $this->config->select = new \stdClass();
+            $this->config->select = (object) [];
         }
 
         $this->config->select->name = $value;
