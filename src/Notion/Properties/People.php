@@ -6,10 +6,10 @@ class People extends PropertyBase
 {
     public function value()
     {
-        if (is_array($this->config->people) && isset($this->config->people[0])) {
-            return $this->config->people[0]->name;
+        if (is_array($this->config->people)) {
+            return array_column($this->config->people, 'name');
         }
 
-        return null;
+        return [];
     }
 }
