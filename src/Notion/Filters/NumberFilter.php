@@ -2,7 +2,7 @@
 
 class NumberFilter extends Filter
 {
-    protected $type = 'text';
+    protected $type = 'number';
 
     protected $methods = [
         'equals',
