@@ -41,7 +41,7 @@ class ObjectBase
     {
         $this->notion = $notion;
 
-        if (! $data) {
+        if (!$data) {
             return;
         }
 
@@ -55,8 +55,8 @@ class ObjectBase
 
     protected function setProperties($data): void
     {
-        $this->id               = $data->id;
-        $this->created_time     = $data->created_time;
+        $this->id = $data->id;
+        $this->created_time = $data->created_time;
         $this->last_edited_time = $data->last_edited_time;
 
         if (isset($data->archived)) {
@@ -65,7 +65,8 @@ class ObjectBase
 
         if (property_exists($data, 'properties')) {
             foreach ($data->properties as $label => $property) {
-                $this->properties[Str::camel($label)] = $this->createNewProperty($label, $property);
+                $this->properties[sha1($label)] = $this->createNewProperty($label, $property);
+                $this->propertiesCamelCaseAliases[Str::camel($label)] = sha1($label);
             }
         }
 

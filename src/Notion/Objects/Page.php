@@ -1,5 +1,6 @@
 <?php namespace Notion\Objects;
 
+use Illuminate\Support\Str;
 use Notion\ObjectBase;
 use Notion\Http\Response;
 
@@ -8,6 +9,8 @@ class Page extends ObjectBase
     protected $endpoint = 'pages';
 
     protected $properties = [];
+
+    protected $propertiesCamelCaseAliases = [];
 
     protected $parent;
 
@@ -65,7 +68,7 @@ class Page extends ObjectBase
             }
         }
 
-        ray($data);
+        if (function_exists('ray')) ray($data);
 
         return $data;
     }
@@ -74,32 +77,51 @@ class Page extends ObjectBase
     {
         $this->properties = $data;
 
+        // generate aliases for camelCase properties
+        foreach ($data as $sha1key => $property) {
+            $this->propertiesCamelCaseAliases[Str::camel($property->name)] = sha1($property->name);
+        }
+
         return $this;
     }
 
     public function __get($property)
     {
-        if (!isset($this->properties[$property])) {
-            return $this->$property;
+        // search propery by sha1 key
+        if (isset($this->properties[sha1($property)])) {
+            return $this->properties[sha1($property)]->value();
         }
 
-        return $this->properties[$property]
-            ->value();
+        // fallback for camelCase alias
+        if(isset($this->propertiesCamelCaseAliases[$property]) && isset($this->properties[$this->propertiesCamelCaseAliases[$property]])) {
+            return $this->properties[$this->propertiesCamelCaseAliases[$property]]->value();
+        }
+
+        // other cases- return class propery
+        return $this->$property;
     }
 
     public function __set($property, $value)
     {
-        if (!isset($this->properties[$property])) {
-            $this->$property = $value;
+        // if we have this property in our sha1-keyed array
+        if (isset($this->properties[sha1($property)])) {
+            $this->properties[sha1($property)]->set($value);
             return;
         }
 
-        $this->properties[$property]->set($value);
+        // else check if it is camelCase alias
+        if(isset($this->propertiesCamelCaseAliases[$property]) && isset($this->properties[$this->propertiesCamelCaseAliases[$property]])) {
+            $this->properties[$this->propertiesCamelCaseAliases[$property]]->set($value);
+            return;
+        }
+
+        // set class property in other cases
+        $this->$property = $value;
     }
 
     public function __isset($property)
     {
-        return isset($this->properties[$property]);
+        return isset($this->properties[sha1($property)]) || (isset($this->propertiesCamelCaseAliases[$property]) && isset($this->properties[$this->propertiesCamelCaseAliases[$property]]));
     }
 
     public function save()
