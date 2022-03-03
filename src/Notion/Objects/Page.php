@@ -43,9 +43,12 @@ class Page extends ObjectBase
     public function prepareForRequest()
     {
         $data = [
-            'parent' => $this->parent,
             'properties' => [],
         ];
+
+        if (null !== $this->parent) {
+            $data['parent'] = $this->parent;
+        }
 
         foreach ($this->properties as $property) {
             $value = $property->get();
@@ -64,8 +67,6 @@ class Page extends ObjectBase
                 $data['children'][] = $child->get();
             }
         }
-
-        ray($data);
 
         return $data;
     }
